@@ -3,28 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using u21650846_HW03.Models;
+using System.Data.Entity;
+using System.Net;
+using System.Threading.Tasks;
 namespace u21650846_HW03.Controllers
 {
     public class HomeController : Controller
     {
+        private LibraryEntities db = new LibraryEntities();
         public ActionResult Index()
         {
-            return View();
+            var viewmodel = new CombinedViewModel()
+            {
+                students= db.students.ToList(),
+                books= db.books.Include(b => b.borrows).ToList(),   
+            };
+            return View(viewmodel);
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
+       
     }
 }
