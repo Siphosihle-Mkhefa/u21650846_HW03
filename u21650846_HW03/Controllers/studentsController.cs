@@ -18,6 +18,7 @@ namespace u21650846_HW03.Controllers
         // GET: students
         public async Task<ActionResult> Index()
         {
+            
             return View(await db.students.ToListAsync());
         }
 
