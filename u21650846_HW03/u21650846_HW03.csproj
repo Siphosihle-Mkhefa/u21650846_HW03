@@ -120,7 +120,12 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\authorsController.cs" />
+    <Compile Include="Controllers\booksController.cs" />
+    <Compile Include="Controllers\borrowsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\studentsController.cs" />
+    <Compile Include="Controllers\typesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -246,6 +251,31 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\authors\Create.cshtml" />
+    <Content Include="Views\authors\Delete.cshtml" />
+    <Content Include="Views\authors\Details.cshtml" />
+    <Content Include="Views\authors\Edit.cshtml" />
+    <Content Include="Views\authors\Index.cshtml" />
+    <Content Include="Views\books\Create.cshtml" />
+    <Content Include="Views\books\Delete.cshtml" />
+    <Content Include="Views\books\Details.cshtml" />
+    <Content Include="Views\books\Edit.cshtml" />
+    <Content Include="Views\books\Index.cshtml" />
+    <Content Include="Views\borrows\Create.cshtml" />
+    <Content Include="Views\borrows\Delete.cshtml" />
+    <Content Include="Views\borrows\Details.cshtml" />
+    <Content Include="Views\borrows\Edit.cshtml" />
+    <Content Include="Views\borrows\Index.cshtml" />
+    <Content Include="Views\students\Create.cshtml" />
+    <Content Include="Views\students\Delete.cshtml" />
+    <Content Include="Views\students\Details.cshtml" />
+    <Content Include="Views\students\Edit.cshtml" />
+    <Content Include="Views\students\Index.cshtml" />
+    <Content Include="Views\types\Create.cshtml" />
+    <Content Include="Views\types\Delete.cshtml" />
+    <Content Include="Views\types\Details.cshtml" />
+    <Content Include="Views\types\Edit.cshtml" />
+    <Content Include="Views\types\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
