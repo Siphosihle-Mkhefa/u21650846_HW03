@@ -3,12 +3,78 @@
 <div>
 <div class="row">
     <div class="col-md-6">
+        <div class="indi">
+            <table class="table">
+                <tr>
+                    <th> Name </th>
+                    <th> Surname </th>
+                    <th> Birth Date</th>
+                    <th> Gender </th>
+                    <th> Class</th>
+                    <th> Point</th>
 
+                </tr>
+                @foreach (var item in Model.students)
+                {
+                    <tr>
+                        <td>
+                            @item.name
+                        </td>
+                        <td>
+                            @item.surname
+                        </td>
+                        <td>
+                            @item.birthdate
+                        </td>
+                        <td>
+                            @item.gender
+                        </td>
+                        <td>
+                            @(item.@class)
+                        </td>
+                        <td>
+                            @item.point
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
     </div>
 
 
     <div class="col-md-6">
+        <div class="indi">
+            <table class="table">
+                <tr>
+                    <th> Author</th>
+                    <th> Title </th>
+                    <th> Page Count </th>
+                    <th>Genre </th>
+                    <th> Point</th>
+                </tr>
+                @foreach (var item in Model.books)
+                {
+                    <tr>
+                        <td>
+                            @item.authors.name @item.authors.surname
+                        </td>
+                        <td>
+                            @item.name
+                        </td>
+                        <td>
+                            @item.pagecount
+                        </td>
+                        <td>
+                            @item.types.name
+                        </td>
+                        <td>
+                            @item.point
+                        </td>
+                    </tr>
+                }
+            </table>
 
+        </div>
     </div>
 </div>
 </div>

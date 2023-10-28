@@ -17,7 +17,7 @@ namespace u21650846_HW03.Controllers
             var viewmodel = new CombinedViewModel()
             {
                 students= db.students.ToList(),
-                books= db.books.Include(b => b.borrows).ToList(),   
+                books= db.books.Include(a => a.authors).Include(t => t.types).ToList(),   
             };
             return View(viewmodel);
         }
