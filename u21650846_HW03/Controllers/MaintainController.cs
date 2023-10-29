@@ -22,7 +22,7 @@ namespace u21650846_HW03.Controllers
             // Students pagination
             int authorPageNumber = authorPage ?? 1;
             var author = await db.authors.OrderBy(a => a.authorId).ToListAsync();
-            var pagedStudent = author.ToPagedList((int)authorPageNumber, pageSize);
+            var pagedAuthor = author.ToPagedList((int)authorPageNumber, pageSize);
 
             int typePageNumber = typePage ?? 1;
             var type = await db.types.OrderBy(a => a.typeId).ToListAsync();
@@ -31,11 +31,14 @@ namespace u21650846_HW03.Controllers
             // Books pagination
             int borrowPageNumber = borrowpage ?? 1;
             var borrow = await db.borrows.OrderBy(b => b.bookId).ToListAsync();
-            var pagedBook = borrow.ToPagedList((int)borrowPageNumber, pageSize);
+            var pagedBorrow = borrow.ToPagedList((int)borrowPageNumber, pageSize);
 
             var viewModel = new CombinedViewModel
             {
-               
+               authors= pagedAuthor,
+               types= pagedtype,    
+               borrows= pagedBorrow,
+
                 
             };
 

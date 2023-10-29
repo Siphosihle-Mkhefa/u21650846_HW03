@@ -1,5 +1,6 @@
 ﻿@model u21650846_HW03.Models.CombinedViewModel
-
+@using PagedList.Mvc
+@using PagedList;
 <div>
     <div class="row">
         <div class="col-md-6">
@@ -8,16 +9,21 @@
                     <tr>
                         <th> Name</th>
                         <th> Surname</th>
-                        
+
                     </tr>
-                    @foreach(var item in Model.authors)
-            {
-                <tr>
-                    <td> @item.name</td>
-                    <td> @item.surname</td>
-                </tr>
-            }
+                    @foreach (var item in Model.authors)
+                    {
+                        <tr>
+                            <td> @item.name</td>
+                            <td> @item.surname</td>
+                        </tr>
+                    }
                 </table>
+                <div class="pagination" id="student-pagination">
+                    Page @(Model.authors.PageNumber) of @Model.authors.PageCount
+                    @Html.PagedListPager(Model.authors, page => Url.Action("Maintain", new { authorPage = page }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+
+                </div>
             </div>
         </div>
 
@@ -26,20 +32,25 @@
                 <table class="table table-striped">
                     <tr>
                         <th>Genre </th>
-                       
+
                     </tr>
-                    @foreach( var item in Model.types)
-            {
-                <tr>
-                    <td> @item.name</td>
-                </tr>
-            }
+                    @foreach (var item in Model.types)
+                    {
+                        <tr>
+                            <td> @item.name</td>
+                        </tr>
+                    }
                 </table>
+                <div class="pagination" id="student-pagination">
+                    Page @(Model.types.PageNumber) of @Model.types.PageCount
+                    @Html.PagedListPager(Model.types, page => Url.Action("Maintain", new { typePage = page }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+
+                </div>
             </div>
 
         </div>
     </div>
-    
+
     <div class="row">
         <div class="col-md-12">
             <div class="indi">
@@ -49,26 +60,31 @@
                         <th> Book Title</th>
                         <th>Date Taken </th>
                         <th> Date Returned</th>
-                        
+
                     </tr>
-                    @foreach( var item in Model.borrows)
-            {
-                <tr>
-                    <td>
-                        @item.students.name @item.students.surname 
-                    </td>
-                    <td>
-                        @item.books.name
-                    </td>
-                    <td>
-                        @item.takenDate
-                    </td>
-                    <td>
-                        @item.broughtDate
-                    </td>
-                </tr>
-            }
+                    @foreach (var item in Model.borrows)
+                    {
+                        <tr>
+                            <td>
+                                @item.students.name @item.students.surname
+                            </td>
+                            <td>
+                                @item.books.name
+                            </td>
+                            <td>
+                                @item.takenDate
+                            </td>
+                            <td>
+                                @item.broughtDate
+                            </td>
+                        </tr>
+                    }
                 </table>
+                <div class="pagination" id="student-pagination">
+                    Page @(Model.borrows.PageNumber) of @Model.borrows.PageCount
+                    @Html.PagedListPager(Model.borrows, page => Url.Action("Maintain", new { borrowPage = page }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+
+                </div>
             </div>
         </div>
     </div>
