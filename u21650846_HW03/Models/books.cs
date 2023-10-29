@@ -26,7 +26,7 @@ namespace u21650846_HW03.Models
         public Nullable<int> point { get; set; }
         public Nullable<int> authorId { get; set; }
         public Nullable<int> typeId { get; set; }
-    
+         
         public virtual authors authors { get; set; }
         public virtual types types { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

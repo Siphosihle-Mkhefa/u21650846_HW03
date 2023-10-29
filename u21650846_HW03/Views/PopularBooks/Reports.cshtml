@@ -1,20 +1,20 @@
 ﻿@using Newtonsoft.Json
 @model List<u21650846_HW03.Models.PopularBooks>
 
-<div>
+<div  style="margin: 30px">
     <h1>Popular Books Report</h1>
     <form method="post" asp-action="GenerateReport">
         <label for="startDate">Start Date:</label>
         <input type="date" id="startDate" name="startDate" required>
-        <br>
+        <br />
         <label for="endDate">End Date:</label>
         <input type="date" id="endDate" name="endDate" required>
-        <br>
-        <button type="submit">Generate Report</button>
+        <br />
+        <button type="submit" class=" btn btn-success">Generate Report</button>
     </form>
     <canvas id="popularBooksChart" width="400" height="200"></canvas>
 
-</div>
+
 
 <form id="chartForm" action="/PopularBooks/Save" method="post">
     <div id="file-generator" class="d-flex justify-content-end" style="padding-top: 10px;">
@@ -49,7 +49,7 @@
 
 </form>
 
-
+    </div>
     <div>
     </div>>
     @section Scripts{
@@ -58,7 +58,7 @@
         <script>
 
         $(document).ready(function () {
-            // Enable the Download button when the file name field is not empty
+           
             var fileNameField = $("#fileName");
             fileNameField.on("input", function () {
                 var fileName = fileNameField.val();
@@ -80,14 +80,14 @@
         datasets: [{
             label: 'Borrow Count',
             data: borrowCounts,
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235, 1)',   
             borderWidth: 1
         }]
     };
 
     var myBarChart = new Chart(ctx, {
-        type: 'bar', // Specify the chart type as 'bar'
+        type: 'bar', 
         data: chartData,
         options: {
             scales: {
@@ -101,14 +101,13 @@
         var chartImage = new Image();
         chartImage.src = chartCanvas.toDataURL('image/png');
 
-        // Store the chart image data in the hidden input
+      
         document.getElementById('chartImageData').value = chartImage.src;
 
-        // Handle form submission
+        
         document.getElementById('chartForm').addEventListener('submit', function (e) {
             e.preventDefault();
 
-            // Submit the form to the server
             this.submit();
         });
 

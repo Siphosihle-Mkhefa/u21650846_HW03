@@ -17,9 +17,9 @@ namespace u21650846_HW03.Controllers
         private LibraryEntities db = new LibraryEntities();
         public async Task<ActionResult> Maintain(int? borrowpage, int? authorPage, int? typePage)
         {
-            int pageSize = 10; // Number of items per page
+            int pageSize = 10;
 
-            // Students pagination
+            
             int authorPageNumber = authorPage ?? 1;
             var author = await db.authors.OrderBy(a => a.authorId).ToListAsync();
             var pagedAuthor = author.ToPagedList((int)authorPageNumber, pageSize);
@@ -28,9 +28,9 @@ namespace u21650846_HW03.Controllers
             var type = await db.types.OrderBy(a => a.typeId).ToListAsync();
             var pagedtype = type.ToPagedList((int)typePageNumber, pageSize);
 
-            // Books pagination
+           
             int borrowPageNumber = borrowpage ?? 1;
-            var borrow = await db.borrows.OrderBy(b => b.bookId).ToListAsync();
+            var borrow = await db.borrows.OrderBy(b => b.studentId).ToListAsync();
             var pagedBorrow = borrow.ToPagedList((int)borrowPageNumber, pageSize);
 
             var viewModel = new CombinedViewModel

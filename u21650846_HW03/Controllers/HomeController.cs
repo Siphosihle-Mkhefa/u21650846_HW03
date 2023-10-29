@@ -17,23 +17,23 @@ namespace u21650846_HW03.Controllers
         private LibraryEntities db = new LibraryEntities();
         public async Task <ActionResult> Index(int? page, int? bookPage, int? studentPage)
         {
-            int pageSize = 10; // Number of items per page
+            int pageSize = 10; 
 
-            // Students pagination
+            
             int studentPageNumber = studentPage ?? 1;
             var students = await db.students.OrderBy(s => s.studentId).ToListAsync();
             var pagedStudent = students.ToPagedList((int)studentPageNumber, pageSize);
 
-            // Books pagination
+          
             int bookPageNumber = bookPage ?? 1;
             var books = await db.books.OrderBy(b => b.bookId).ToListAsync();
             var pagedBook = books.ToPagedList((int)bookPageNumber, pageSize);
-
+            
             var viewModel = new CombinedViewModel
             {
                 students = pagedStudent,
                 books = pagedBook
-                // Add other properties to your view model if needed
+               
             };
 
             return View(viewModel);
