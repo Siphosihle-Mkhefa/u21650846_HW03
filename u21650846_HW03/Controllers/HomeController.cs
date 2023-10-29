@@ -7,22 +7,59 @@ using u21650846_HW03.Models;
 using System.Data.Entity;
 using System.Net;
 using System.Threading.Tasks;
+using PagedList;
+using PagedList.Mvc;
+
 namespace u21650846_HW03.Controllers
 {
     public class HomeController : Controller
     {
         private LibraryEntities db = new LibraryEntities();
-        public async Task <ActionResult> Index()
+        public async Task <ActionResult> Index(int? page, int? bookPage, int? studentPage)
         {
-            var viewmodel = new CombinedViewModel()
+            int pageSize = 10; // Number of items per page
+
+            // Students pagination
+            int studentPageNumber = studentPage ?? 1;
+            var students = await db.students.OrderBy(s => s.studentId).ToListAsync();
+            var pagedStudent = students.ToPagedList((int)studentPageNumber, pageSize);
+
+            // Books pagination
+            int bookPageNumber = bookPage ?? 1;
+            var books = await db.books.OrderBy(b => b.bookId).ToListAsync();
+            var pagedBook = books.ToPagedList((int)bookPageNumber, pageSize);
+
+            var viewModel = new CombinedViewModel
             {
-                students= await db.students.ToListAsync(),
-                books= await db.books.Include(a => a.authors).Include(t => t.types).ToListAsync(),   
-                borrows= await db.borrows.ToListAsync(),
+                students = pagedStudent,
+                books = pagedBook
+                // Add other properties to your view model if needed
             };
-            return View(viewmodel);
+
+            return View(viewModel);
         }
 
-       
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: students/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create([Bind(Include = "studentId,name,surname,birthdate,gender,class,point")] students students)
+        {
+            if (ModelState.IsValid)
+            {
+                db.students.Add(students);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+
+            return View(students);
+        }
+
     }
 }

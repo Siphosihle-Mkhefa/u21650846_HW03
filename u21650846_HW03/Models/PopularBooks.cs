@@ -14,5 +14,6 @@ namespace u21650846_HW03.Models
         public int AuthorId { get; set; }
         public int TypeId { get; set; }
         public int? BorrowCount { get; set; }
+        public FileModel FileModel { get; set; }
     }
 }

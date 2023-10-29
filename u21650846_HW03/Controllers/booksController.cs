@@ -56,7 +56,7 @@ namespace u21650846_HW03.Controllers
             {
                 db.books.Add(books);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Home");
             }
 
             ViewBag.authorId = new SelectList(db.authors, "authorId", "name", books.authorId);

@@ -3,8 +3,13 @@
 @using PagedList;
 
 <div>
-    <div class="row">
-        <div class="col-md-6">
+    <div class="">
+        <div class="col-md-8">
+            <h3> Students</h3>
+
+            <p>
+                <a href="#" class="create-link" data-url="@Url.Action("Create", "students")">Add Student</a>
+            </p>
             <div class="indi">
                 <table class="table">
                     <tr>
@@ -41,13 +46,21 @@
                     }
                 </table>
                 <div class="pagination" id="student-pagination">
-                    <!-- Pagination controls for students -->
+                    Page @(Model.students.PageNumber) of @Model.students.PageCount
+                    @Html.PagedListPager(Model.students, page => Url.Action("Index", new { studentPage = page }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+
                 </div>
             </div>
         </div>
 
+        <br />
+        <br />
+        <div class="col-md-8">
+            <h3> Books</h3>
 
-        <div class="col-md-6">
+            <p>
+                <a href="#" class="create-link" data-url="@Url.Action("Create", "books")">Add Book</a>
+            </p>
             <div class="indi">
                 <table class="table">
                     <tr>
@@ -82,50 +95,66 @@
                         </tr>
                     }
                 </table>
+                <br />
                 <div class="pagination" id="book-pagination">
-                    <!-- Pagination controls for books -->
+                    Page @(Model.books.PageNumber) of @Model.books.PageCount
+                    @Html.PagedListPager(Model.books, page => Url.Action("Index", new { bookPage = page }), PagedListRenderOptions.ClassicPlusFirstAndLast)
                 </div>
             </div>
         </div>
     </div>
 </div>
-
+<div id="myModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Sample Async CRUD</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modal-content">
+            </div>
+        </div>
+    </div>
+</div>
 @section Scripts{
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function () {
-            // Define the number of items per page
-            var itemsPerPage = 10;
+        $(function () {
 
-            // Initialize pagination for students
-            $('#student-pagination').pagination({
-                dataSource: Model.students,
-                pageSize: itemsPerPage,
-                callback: function (data, pagination) {
-                    // Update the student table with the current page data
-                    updateStudentTable(data);
-                }
+            $(".edit-link, .edit-link-in-modal").click(function (e) {
+                e.preventDefault();
+                var url = $(this).data("url");
+
+                $.get(url, function (data) {
+                    $("#modal-content").empty();
+                    $("#modal-content").html(data);
+                    $("#myModal").modal("show");
+                });
             });
 
-            // Initialize pagination for books
-            $('#book-pagination').pagination({
-                dataSource: Model.books,
-                pageSize: itemsPerPage,
-                callback: function (data, pagination) {
-                    // Update the books table with the current page data
-                    updateBooksTable(data);
-                }
+            $("#modal-content").on("submit", "form", function (e) {
+                e.preventDefault();
+                var form = $(this);
+                var url = form.attr("action");
+                var formData = form.serialize();
+
+                $.post(url, formData, function (data) {
+                    $("#myModal").modal("hide");
+                    location.reload();
+                });
             });
 
-            function updateStudentTable(data) {
-                // Update the student table with the provided data
-                // This should replace the content of the student table
-            }
 
-            function updateBooksTable(data) {
-                // Update the books table with the provided data
-                // This should replace the content of the books table
-            }
+            $(".details-link, .delete-link, .create-link, .create-lookup-link").click(function (e) {
+                e.preventDefault();
+                var url = $(this).data("url");
+
+                $.get(url, function (data) {
+                    $("#modal-content").empty();
+                    $("#modal-content").html(data);
+                    $("#myModal").modal("show");
+                });
+            });
         });
     </script>
 

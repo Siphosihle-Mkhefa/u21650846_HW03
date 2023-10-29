@@ -54,7 +54,7 @@ namespace u21650846_HW03.Controllers
             {
                 db.students.Add(students);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Home");
             }
 
             return View(students);
