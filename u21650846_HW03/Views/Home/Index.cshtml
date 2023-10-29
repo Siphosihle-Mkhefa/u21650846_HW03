@@ -51,6 +51,7 @@
                     <th> Page Count </th>
                     <th>Genre </th>
                     <th> Point</th>
+                    <th> Status</th>
                 </tr>
                 @foreach (var item in Model.books)
                 {
@@ -70,6 +71,10 @@
                         <td>
                             @item.point
                         </td>
+                        <td id="Status">
+
+                        </td>
+                     
                     </tr>
                 }
             </table>
@@ -78,3 +83,12 @@
     </div>
 </div>
 </div>
+
+@section Scripts{
+    <script>
+
+
+    </script>
+
+
+    }
