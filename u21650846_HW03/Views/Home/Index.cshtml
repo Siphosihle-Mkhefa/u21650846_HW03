@@ -1,94 +1,134 @@
 ﻿@model u21650846_HW03.Models.CombinedViewModel
+@using PagedList.Mvc
+@using PagedList;
 
 <div>
-<div class="row">
-    <div class="col-md-6">
-        <div class="indi">
-            <table class="table">
-                <tr>
-                    <th> Name </th>
-                    <th> Surname </th>
-                    <th> Birth Date</th>
-                    <th> Gender </th>
-                    <th> Class</th>
-                    <th> Point</th>
-
-                </tr>
-                @foreach (var item in Model.students)
-                {
+    <div class="row">
+        <div class="col-md-6">
+            <div class="indi">
+                <table class="table">
                     <tr>
-                        <td>
-                            @item.name
-                        </td>
-                        <td>
-                            @item.surname
-                        </td>
-                        <td>
-                            @item.birthdate
-                        </td>
-                        <td>
-                            @item.gender
-                        </td>
-                        <td>
-                            @(item.@class)
-                        </td>
-                        <td>
-                            @item.point
-                        </td>
+                        <th> Name </th>
+                        <th> Surname </th>
+                        <th> Birth Date</th>
+                        <th> Gender </th>
+                        <th> Class</th>
+                        <th> Point</th>
+
                     </tr>
-                }
-            </table>
+                    @foreach (var item in Model.students)
+                    {
+                        <tr>
+                            <td>
+                                @item.name
+                            </td>
+                            <td>
+                                @item.surname
+                            </td>
+                            <td>
+                                @item.birthdate
+                            </td>
+                            <td>
+                                @item.gender
+                            </td>
+                            <td>
+                                @(item.@class)
+                            </td>
+                            <td>
+                                @item.point
+                            </td>
+                        </tr>
+                    }
+                </table>
+                <div class="pagination" id="student-pagination">
+                    <!-- Pagination controls for students -->
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-6">
+            <div class="indi">
+                <table class="table">
+                    <tr>
+                        <th> Author</th>
+                        <th> Title </th>
+                        <th> Page Count </th>
+                        <th>Genre </th>
+                        <th> Point</th>
+                        <th> Status</th>
+                    </tr>
+                    @foreach (var item in Model.books)
+                    {
+                        <tr>
+                            <td>
+                                @item.authors.name @item.authors.surname
+                            </td>
+                            <td>
+                                @item.name
+                            </td>
+                            <td>
+                                @item.pagecount
+                            </td>
+                            <td>
+                                @item.types.name
+                            </td>
+                            <td>
+                                @item.point
+                            </td>
+                            <td id="Status">
+                            </td>
+
+                        </tr>
+                    }
+                </table>
+                <div class="pagination" id="book-pagination">
+                    <!-- Pagination controls for books -->
+                </div>
+            </div>
         </div>
     </div>
-
-
-    <div class="col-md-6">
-        <div class="indi">
-            <table class="table">
-                <tr>
-                    <th> Author</th>
-                    <th> Title </th>
-                    <th> Page Count </th>
-                    <th>Genre </th>
-                    <th> Point</th>
-                    <th> Status</th>
-                </tr>
-                @foreach (var item in Model.books)
-                {
-                    <tr>
-                        <td>
-                            @item.authors.name @item.authors.surname
-                        </td>
-                        <td>
-                            @item.name
-                        </td>
-                        <td>
-                            @item.pagecount
-                        </td>
-                        <td>
-                            @item.types.name
-                        </td>
-                        <td>
-                            @item.point
-                        </td>
-                        <td id="Status">
-
-                        </td>
-                     
-                    </tr>
-                }
-            </table>
-
-        </div>
-    </div>
-</div>
 </div>
 
 @section Scripts{
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        $(document).ready(function () {
+            // Define the number of items per page
+            var itemsPerPage = 10;
 
+            // Initialize pagination for students
+            $('#student-pagination').pagination({
+                dataSource: Model.students,
+                pageSize: itemsPerPage,
+                callback: function (data, pagination) {
+                    // Update the student table with the current page data
+                    updateStudentTable(data);
+                }
+            });
 
+            // Initialize pagination for books
+            $('#book-pagination').pagination({
+                dataSource: Model.books,
+                pageSize: itemsPerPage,
+                callback: function (data, pagination) {
+                    // Update the books table with the current page data
+                    updateBooksTable(data);
+                }
+            });
+
+            function updateStudentTable(data) {
+                // Update the student table with the provided data
+                // This should replace the content of the student table
+            }
+
+            function updateBooksTable(data) {
+                // Update the books table with the provided data
+                // This should replace the content of the books table
+            }
+        });
     </script>
 
 
-    }
+
+}

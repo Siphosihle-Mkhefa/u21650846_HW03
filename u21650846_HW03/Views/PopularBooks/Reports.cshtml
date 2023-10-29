@@ -1,0 +1,50 @@
+﻿@using Newtonsoft.Json
+@model List<u21650846_HW03.Models.PopularBooks>
+<div>
+<h1>Popular Books Report</h1>
+<form method="post" asp-action="GenerateReport">
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate" name="startDate" required>
+    <br>
+    <label for="endDate">End Date:</label>
+    <input type="date" id="endDate" name="endDate" required>
+    <br>
+    <button type="submit">Generate Report</button>
+</form>
+<canvas id="popularBooksChart" width="400" height="200"></canvas>
+
+</div>
+
+<div>
+    </div>>
+@section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('popularBooksChart').getContext('2d');
+    var bookNames = @Html.Raw(JsonConvert.SerializeObject(Model.Select(x => x.BookName).ToList()));
+    var borrowCounts = @Html.Raw(JsonConvert.SerializeObject(Model.Select(x => x.BorrowCount).ToList()));
+
+    var chartData = {
+        labels: bookNames,
+        datasets: [{
+            label: 'Borrow Count',
+            data: borrowCounts,
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+        }]
+    };
+
+    var myBarChart = new Chart(ctx, {
+        type: 'bar', // Specify the chart type as 'bar'
+        data: chartData,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+    </script>
+}

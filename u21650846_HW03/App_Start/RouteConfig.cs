@@ -14,6 +14,12 @@ namespace u21650846_HW03
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+            name: "PopularBooks",
+            url: "popular/books",
+            defaults: new { controller = "PopularBooks", action = "Reports" }
+        );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
