@@ -16,13 +16,12 @@
 
 </div>
 
-@using (Html.BeginForm("SAVE", "PopularBooks", FormMethod.Post))
-{
+<form id="chartForm" action="/PopularBooks/Save" method="post">
     <div id="file-generator" class="d-flex justify-content-end" style="padding-top: 10px;">
         <div class="btn-group">
-
+            <input type="hidden" id="chartImageData" name="chartImageData" />
             <input type="text" name="fileName" id="fileName" class="form-control" style="width: 300px;" placeholder="Add File Name">
-            <select id="fileType" class="form-control" style="width: 150px;">
+            <select  name="fileType" id="fileType" class="form-control" style="width: 150px;">
                 <option value=".docx">DOCX</option>
                 <option value=".pdf">PDF</option>
                 <option value=".xps">XPS</option>
@@ -48,18 +47,19 @@
         </div>
     </div>
 
-}
+</form>
 
 
-<div>
-</div>>
-@section Scripts{
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
+    <div>
+    </div>>
+    @section Scripts{
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+        <script>
 
         $(document).ready(function () {
             // Enable the Download button when the file name field is not empty
-            var fileNameField = $("#FileName");
+            var fileNameField = $("#fileName");
             fileNameField.on("input", function () {
                 var fileName = fileNameField.val();
                 var saveButton = $("input[type='submit'][value='Save']");
@@ -97,8 +97,21 @@
             }
         }
     });
+        var chartCanvas = document.getElementById('popularBooksChart');
+        var chartImage = new Image();
+        chartImage.src = chartCanvas.toDataURL('image/png');
+
+        // Store the chart image data in the hidden input
+        document.getElementById('chartImageData').value = chartImage.src;
+
+        // Handle form submission
+        document.getElementById('chartForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Submit the form to the server
+            this.submit();
+        });
 
 
-
-    </script>
-}
+        </script>
+    }

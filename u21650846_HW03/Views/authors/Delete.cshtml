@@ -10,6 +10,7 @@
 <div>
     <h4>authors</h4>
     <hr />
+    @Html.HiddenFor(model => model.authorId)
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.name)
@@ -29,8 +30,9 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
+    @using (Html.BeginForm())
+    {
+       
         <br />
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-danger" /> |

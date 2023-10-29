@@ -58,27 +58,40 @@ namespace u21650846_HW03.Controllers
         }
 
         [HttpPost]
-        public FileResult SAVE(PopularBooks model)
+        public FileResult SAVE(string chartImageData, string fileType, string fileName)
         {
-            // If using Professional version, put your serial key below.
+          
             ComponentInfo.SetLicense("FREE-LIMITED-KEY");
-
+            byte[] imageBytes = Convert.FromBase64String(chartImageData.Split(',')[1]);
             var templateFile = Server.MapPath("~/App_Data/DocumentTemplate.docx");
+            PopularBooks model = new PopularBooks
+            {
+                FileModel = new FileModel(), 
+                                             
+            };
 
-            // Load template document.
             var document = DocumentModel.Load(templateFile);
-
-            // Insert content from HTML editor.
+            model.FileModel.FileName = fileName;
+            model.FileModel.Extension = fileType;
+            model.FileModel.Content = chartImageData;
+           
             var bookmark = document.Bookmarks["HtmlBookmark"];
             bookmark.GetContent(true).LoadText(model.FileModel.Content, LoadOptions.HtmlDefault);
 
-            // Save document to stream in specified format.
+           
             var saveOptions = GetSaveOptions(model.FileModel.Extension);
             var stream = new MemoryStream();
             document.Save(stream, saveOptions);
 
-            // Download document.
+
+
+
             var downloadDirectory = Server.MapPath("~/Documents/");
+            if (!Directory.Exists(downloadDirectory))
+            {
+                Directory.CreateDirectory(downloadDirectory);
+            }
+
             var downloadFile = $"{model.FileModel.FileName}{model.FileModel.Extension}";
             var fullPath = Path.Combine(downloadDirectory, downloadFile);
             System.IO.File.WriteAllBytes(fullPath, stream.ToArray());
@@ -90,6 +103,7 @@ namespace u21650846_HW03.Controllers
                 files.Add(new FileModel { FileName = Path.GetFileName(filePath) });
             }
             return File(fullPath, saveOptions.ContentType, downloadFile);
+
         }
 
 
