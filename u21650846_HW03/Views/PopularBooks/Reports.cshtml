@@ -21,31 +21,26 @@
     <div id="file-generator" class="d-flex justify-content-end" style="padding-top: 10px;">
         <div class="btn-group">
 
-            <div style="padding-right: 15px;">
-                @Html.TextBoxFor(model => model[0].FileModel.FileName, new { @class = "form-control", style = "width: 300px;", placeholder = "Add File Name" })
+            <input type="text" name="fileName" id="fileName" class="form-control" style="width: 300px;" placeholder="Add File Name">
+            <select id="fileType" class="form-control" style="width: 150px;">
+                <option value=".docx">DOCX</option>
+                <option value=".pdf">PDF</option>
+                <option value=".xps">XPS</option>
+                <option value=".html">HTML</option>
+                <option value=".mhtml">MHTML</option>
+                <option value=".rtf">RTF</option>
+                <option value=".xml">XML</option>
+                <option value=".txt">TXT</option>
+                <option value=".png">PNG</option>
+                <option value=".jpeg">JPEG</option>
+                <option value=".gif">GIF</option>
+                <option value=".bmp">BMP</option>
+                <option value=".tiff">TIFF</option>
+                <option value=".wmp">WMP</option>
+            </select>
 
-            </div>
-            @Html.DropDownListFor(Model => Model[0].FileModel.FileName,
-              new[]
-              {
-                new SelectListItem() { Text = "DOCX", Value = ".docx" },
-                new SelectListItem() { Text = "PDF", Value = ".pdf", Selected = true },
-                new SelectListItem() { Text = "XPS", Value = ".xps" },
-                new SelectListItem() { Text = "HTML", Value = ".html" },
-                new SelectListItem() { Text = "MHTML", Value = ".mhtml" },
-                new SelectListItem() { Text = "RTF", Value = ".rtf" },
-                new SelectListItem() { Text = "XML", Value = ".xml" },
-                new SelectListItem() { Text = "TXT", Value = ".txt" },
-                new SelectListItem() { Text = "PNG", Value = ".png" },
-                new SelectListItem() { Text = "JPEG", Value = ".jpeg" },
-                new SelectListItem() { Text = "GIF", Value = ".gif" },
-                new SelectListItem() { Text = "BMP", Value = ".bmp" },
-                new SelectListItem() { Text = "TIFF", Value = ".tiff" },
-                new SelectListItem() { Text = "WMP", Value = ".wmp" }
-              },
-                new { @class = "form-control", style = "width: 150px;" })
 
-            
+
             <div style="padding-right: 15px; padding-left: 15px;">
                 <input type="submit" class="btn btn-primary" value="Save" style="width: 150px;" disabled />
             </div>
@@ -64,7 +59,7 @@
 
         $(document).ready(function () {
             // Enable the Download button when the file name field is not empty
-            var fileNameField = $("input[name='FileName']");
+            var fileNameField = $("#FileName");
             fileNameField.on("input", function () {
                 var fileName = fileNameField.val();
                 var saveButton = $("input[type='submit'][value='Save']");

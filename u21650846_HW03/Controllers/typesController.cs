@@ -53,7 +53,7 @@ namespace u21650846_HW03.Controllers
             {
                 db.types.Add(types);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Maintain", "Maintain");
             }
 
             return View(types);
@@ -85,7 +85,7 @@ namespace u21650846_HW03.Controllers
             {
                 db.Entry(types).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Maintain", "Maintain");
             }
             return View(types);
         }
@@ -113,7 +113,7 @@ namespace u21650846_HW03.Controllers
             types types = await db.types.FindAsync(id);
             db.types.Remove(types);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("Maintain", "Maintain");
         }
 
         protected override void Dispose(bool disposing)
